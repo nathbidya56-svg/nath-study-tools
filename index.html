@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,281 +5,666 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Nath Study & Tools</title>
-<meta name="description" content="Free online tools and exam MCQ practice at Nath Study & Tools.">
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-    font-family:Arial, sans-serif;
-    background:#f5f7fb;
-    color:#1f2937;
+font-family:Arial,sans-serif;
+background:#f5f7fb;
+color:#1f2937;
+line-height:1.5
 }
 
 header{
-    background:linear-gradient(135deg,#2563eb,#4f46e5);
-    color:white;
-    padding:30px 15px;
-    text-align:center;
+background:linear-gradient(135deg,#2563eb,#4f46e5);
+color:white;
+text-align:center;
+padding:25px 15px
 }
 
-header h1{
-    font-size:32px;
-    margin-bottom:8px;
-}
-
-header p{
-    font-size:16px;
-}
+header h1{font-size:28px}
+header p{font-size:14px;margin-top:5px}
 
 nav{
-    background:white;
-    padding:12px;
-    text-align:center;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-    position:sticky;
-    top:0;
-    z-index:10;
+background:white;
+padding:12px;
+text-align:center;
+box-shadow:0 2px 8px #ddd;
+position:sticky;
+top:0;
+z-index:10
 }
 
 nav a{
-    color:#2563eb;
-    text-decoration:none;
-    margin:0 10px;
-    font-weight:bold;
-    font-size:14px;
+text-decoration:none;
+color:#2563eb;
+font-weight:bold;
+margin:0 8px;
+font-size:14px
 }
 
 .hero{
-    text-align:center;
-    padding:35px 15px 20px;
+text-align:center;
+padding:35px 15px 20px
 }
 
-.hero h2{
-    font-size:27px;
-    margin-bottom:10px;
-}
-
-.hero p{
-    color:#6b7280;
-    line-height:1.6;
-}
+.hero h2{font-size:25px}
+.hero p{color:#6b7280;margin-top:8px}
 
 .search{
-    max-width:600px;
-    margin:20px auto;
-    padding:0 15px;
-}
-
-.search input{
-    width:100%;
-    padding:14px;
-    border:1px solid #ddd;
-    border-radius:10px;
-    font-size:16px;
+max-width:600px;
+margin:20px auto;
+padding:14px 18px;
+width:90%;
+border:1px solid #ddd;
+border-radius:10px;
+font-size:15px;
+outline:none
 }
 
 .container{
-    max-width:1000px;
-    margin:auto;
-    padding:15px;
+max-width:1100px;
+margin:auto;
+padding:10px
 }
 
 .section-title{
-    text-align:center;
-    margin:30px 0 20px;
-    font-size:24px;
+text-align:center;
+margin:25px 0 15px;
+font-size:22px
 }
 
 .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:15px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px
 }
 
 .card{
-    background:white;
-    padding:22px;
-    border-radius:14px;
-    box-shadow:0 3px 12px rgba(0,0,0,.08);
-    text-align:center;
-    transition:.2s;
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 2px 10px #ddd;
+text-align:center
 }
 
-.card:hover{
-    transform:translateY(-3px);
+.card .icon{
+font-size:35px;
+margin-bottom:8px
 }
 
-.icon{
-    font-size:38px;
-    margin-bottom:10px;
-}
-
-.card h3{
-    margin-bottom:8px;
-}
-
+.card h3{font-size:18px}
 .card p{
-    color:#6b7280;
-    font-size:14px;
-    line-height:1.5;
+font-size:13px;
+color:#6b7280;
+margin:8px 0 15px
 }
 
-.button{
-    display:inline-block;
-    margin-top:15px;
-    padding:10px 18px;
-    background:#2563eb;
-    color:white;
-    text-decoration:none;
-    border-radius:8px;
-    font-size:14px;
+button{
+background:#2563eb;
+color:white;
+border:0;
+padding:10px 18px;
+border-radius:7px;
+cursor:pointer;
+font-weight:bold
+}
+
+button:hover{background:#1d4ed8}
+
+.tool{
+display:none;
+background:white;
+max-width:600px;
+margin:25px auto;
+padding:25px;
+border-radius:12px;
+box-shadow:0 2px 12px #ddd
+}
+
+.tool h2{text-align:center;margin-bottom:18px}
+
+input,textarea,select{
+width:100%;
+padding:12px;
+margin:7px 0 12px;
+border:1px solid #ccc;
+border-radius:7px;
+font-size:15px
+}
+
+.result{
+margin-top:15px;
+padding:15px;
+background:#eef4ff;
+border-radius:8px;
+font-weight:bold;
+text-align:center
+}
+
+.close{
+background:#6b7280;
+margin-top:10px
 }
 
 footer{
-    margin-top:40px;
-    background:#111827;
-    color:white;
-    text-align:center;
-    padding:25px 15px;
+margin-top:40px;
+background:#111827;
+color:white;
+text-align:center;
+padding:25px 10px;
+font-size:13px
 }
 
-footer a{
-    color:#93c5fd;
-    text-decoration:none;
-    margin:0 8px;
-    font-size:14px;
-}
-
-footer p{
-    margin-top:12px;
-    font-size:13px;
-    color:#d1d5db;
-}
+.hidden{display:none}
 </style>
 </head>
 
 <body>
 
 <header>
-    <h1>📚 Nath Study & Tools</h1>
-    <p>Free Online Tools & Exam Preparation</p>
+<h1>📚 Nath Study & Tools</h1>
+<p>Free Online Tools & Exam Preparation</p>
 </header>
 
 <nav>
-    <a href="#home">Home</a>
-    <a href="#tools">Tools</a>
-    <a href="#mcq">Exam MCQ</a>
-    <a href="#about">About</a>
+<a href="#home">Home</a>
+<a href="#tools">Tools</a>
+<a href="#mcq">Exam MCQ</a>
+<a href="#about">About</a>
 </nav>
 
 <section class="hero" id="home">
-    <h2>Learn, Practice & Use Free Tools</h2>
-    <p>
-        Useful online tools and exam practice resources,
-        all in one place.
-    </p>
+<h2>Learn, Practice & Use Free Tools</h2>
+<p>Useful online tools and exam practice resources, all in one place.</p>
+
+<input
+class="search"
+id="search"
+type="text"
+placeholder="🔎 Search tools or exams..."
+onkeyup="searchCards()">
 </section>
 
-<div class="search">
-    <input type="text" placeholder="🔍 Search tools or exams...">
-</div>
-
-<main class="container">
+<div class="container">
 
 <h2 class="section-title" id="tools">🛠️ Free Online Tools</h2>
 
-<div class="grid">
+<div class="grid" id="toolGrid">
 
-    <div class="card">
-        <div class="icon">🧮</div>
-        <h3>Percentage Calculator</h3>
-        <p>Calculate percentages quickly and easily.</p>
-        <a class="button" href="#">Use Tool</a>
-    </div>
+<div class="card searchable">
+<div class="icon">🧮</div>
+<h3>Percentage Calculator</h3>
+<p>Calculate percentages quickly and easily.</p>
+<button onclick="openTool('percentage')">Use Tool</button>
+</div>
 
-    <div class="card">
-        <div class="icon">🎂</div>
-        <h3>Age Calculator</h3>
-        <p>Calculate your exact age from your date of birth.</p>
-        <a class="button" href="#">Use Tool</a>
-    </div>
+<div class="card searchable">
+<div class="icon">🎂</div>
+<h3>Age Calculator</h3>
+<p>Calculate your exact age from your date of birth.</p>
+<button onclick="openTool('age')">Use Tool</button>
+</div>
 
-    <div class="card">
-        <div class="icon">🔢</div>
-        <h3>Number Calculator</h3>
-        <p>Perform common mathematical calculations.</p>
-        <a class="button" href="#">Use Tool</a>
-    </div>
+<div class="card searchable">
+<div class="icon">🔢</div>
+<h3>Number Calculator</h3>
+<p>Perform common mathematical calculations.</p>
+<button onclick="openTool('number')">Use Tool</button>
+</div>
 
-    <div class="card">
-        <div class="icon">📝</div>
-        <h3>Word Counter</h3>
-        <p>Count words and characters in your text.</p>
-        <a class="button" href="#">Use Tool</a>
-    </div>
+<div class="card searchable">
+<div class="icon">📝</div>
+<h3>Word Counter</h3>
+<p>Count words and characters in your text.</p>
+<button onclick="openTool('word')">Use Tool</button>
+</div>
 
 </div>
+
+
+<!-- Percentage -->
+
+<div class="tool" id="percentage">
+<h2>🧮 Percentage Calculator</h2>
+
+<label>What is the percentage?</label>
+<input id="percent" type="number" placeholder="Example: 20">
+
+<label>Of number:</label>
+<input id="percentNumber" type="number" placeholder="Example: 500">
+
+<button onclick="calculatePercentage()">Calculate</button>
+
+<div class="result" id="percentResult">Result will appear here</div>
+
+<button class="close" onclick="closeTools()">Close</button>
+</div>
+
+
+<!-- Age -->
+
+<div class="tool" id="age">
+<h2>🎂 Age Calculator</h2>
+
+<label>Your Date of Birth:</label>
+<input id="dob" type="date">
+
+<button onclick="calculateAge()">Calculate Age</button>
+
+<div class="result" id="ageResult">Result will appear here</div>
+
+<button class="close" onclick="closeTools()">Close</button>
+</div>
+
+
+<!-- Number -->
+
+<div class="tool" id="number">
+<h2>🔢 Number Calculator</h2>
+
+<input id="num1" type="number" placeholder="First number">
+
+<select id="operation">
+<option value="+">Addition (+)</option>
+<option value="-">Subtraction (-)</option>
+<option value="*">Multiplication (×)</option>
+<option value="/">Division (÷)</option>
+</select>
+
+<input id="num2" type="number" placeholder="Second number">
+
+<button onclick="calculateNumber()">Calculate</button>
+
+<div class="result" id="numberResult">Result will appear here</div>
+
+<button class="close" onclick="closeTools()">Close</button>
+</div>
+
+
+<!-- Word -->
+
+<div class="tool" id="word">
+<h2>📝 Word & Character Counter</h2>
+
+<textarea id="text" rows="7"
+placeholder="Type or paste your text here..."
+oninput="countText()"></textarea>
+
+<div class="result" id="wordResult">
+Words: 0 | Characters: 0
+</div>
+
+<button class="close" onclick="closeTools()">Close</button>
+</div>
+
 
 <h2 class="section-title" id="mcq">📚 Exam MCQ Practice</h2>
 
 <div class="grid">
 
-    <div class="card">
-        <div class="icon">🇮🇳</div>
-        <h3>Indian GK</h3>
-        <p>Practice general knowledge questions about India.</p>
-        <a class="button" href="#">Start MCQ</a>
-    </div>
+<div class="card searchable">
+<div class="icon">🇮🇳</div>
+<h3>Indian GK</h3>
+<p>Practice general knowledge questions about India.</p>
+<button onclick="startMCQ('Indian GK')">Start MCQ</button>
+</div>
 
-    <div class="card">
-        <div class="icon">🏛️</div>
-        <h3>Assam GK</h3>
-        <p>Practice important Assam general knowledge questions.</p>
-        <a class="button" href="#">Start MCQ</a>
-    </div>
+<div class="card searchable">
+<div class="icon">🏛️</div>
+<h3>Assam GK</h3>
+<p>Practice important Assam general knowledge questions.</p>
+<button onclick="startMCQ('Assam GK')">Start MCQ</button>
+</div>
 
-    <div class="card">
-        <div class="icon">🧠</div>
-        <h3>Reasoning</h3>
-        <p>Improve your reasoning skills with practice questions.</p>
-        <a class="button" href="#">Start MCQ</a>
-    </div>
+<div class="card searchable">
+<div class="icon">🧠</div>
+<h3>Reasoning</h3>
+<p>Improve your reasoning skills with practice questions.</p>
+<button onclick="startMCQ('Reasoning')">Start MCQ</button>
+</div>
 
-    <div class="card">
-        <div class="icon">🌍</div>
-        <h3>Geography</h3>
-        <p>Practice geography questions for competitive exams.</p>
-        <a class="button" href="#">Start MCQ</a>
-    </div>
+<div class="card searchable">
+<div class="icon">🌍</div>
+<h3>Geography</h3>
+<p>Practice geography questions for competitive exams.</p>
+<button onclick="startMCQ('Geography')">Start MCQ</button>
+</div>
 
 </div>
+
+
+<div class="tool" id="mcqTool">
+<h2 id="mcqTitle">MCQ Quiz</h2>
+
+<p id="question"></p>
+
+<div id="options"></div>
+
+<div class="result" id="mcqResult"></div>
+
+<button onclick="nextQuestion()">Next Question</button>
+<button class="close" onclick="closeTools()">Close</button>
+</div>
+
 
 <h2 class="section-title" id="about">ℹ️ About Nath Study & Tools</h2>
 
 <div class="card">
-    <p>
-        Nath Study & Tools provides free online tools and
-        exam practice resources to help students and users
-        learn, practice and complete everyday tasks easily.
-    </p>
+<p>
+Nath Study & Tools provides free online tools and
+exam practice resources to help students learn,
+practice and complete everyday tasks easily.
+</p>
 </div>
 
-</main>
+</div>
+
 
 <footer>
-    <p>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-        <a href="#">Privacy Policy</a>
-    </p>
-
-    <p>© 2026 Nath Study & Tools. All Rights Reserved.</p>
+<p>About &nbsp; | &nbsp; Contact &nbsp; | &nbsp; Privacy Policy</p>
+<br>
+<p>© 2026 Nath Study & Tools. All Rights Reserved.</p>
 </footer>
 
+
+<script>
+
+function openTool(id){
+
+closeTools();
+
+document.getElementById(id).style.display="block";
+
+document.getElementById(id).scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+function closeTools(){
+
+document.querySelectorAll(".tool").forEach(function(tool){
+tool.style.display="none";
+});
+
+}
+
+
+function calculatePercentage(){
+
+let p=parseFloat(document.getElementById("percent").value);
+let n=parseFloat(document.getElementById("percentNumber").value);
+
+if(isNaN(p)||isNaN(n)){
+document.getElementById("percentResult").innerText=
+"Please enter both numbers.";
+return;
+}
+
+let result=(p*n)/100;
+
+document.getElementById("percentResult").innerText=
+p+"% of "+n+" = "+result;
+
+}
+
+
+function calculateAge(){
+
+let dob=document.getElementById("dob").value;
+
+if(!dob){
+document.getElementById("ageResult").innerText=
+"Please select your date of birth.";
+return;
+}
+
+let birth=new Date(dob);
+let today=new Date();
+
+let years=today.getFullYear()-birth.getFullYear();
+let months=today.getMonth()-birth.getMonth();
+let days=today.getDate()-birth.getDate();
+
+if(days<0){
+months--;
+days+=new Date(
+today.getFullYear(),
+today.getMonth(),
+0
+).getDate();
+}
+
+if(months<0){
+years--;
+months+=12;
+}
+
+document.getElementById("ageResult").innerText=
+"Your age is "+years+" years, "+
+months+" months and "+days+" days.";
+
+}
+
+
+function calculateNumber(){
+
+let a=parseFloat(document.getElementById("num1").value);
+let b=parseFloat(document.getElementById("num2").value);
+let op=document.getElementById("operation").value;
+
+if(isNaN(a)||isNaN(b)){
+document.getElementById("numberResult").innerText=
+"Please enter both numbers.";
+return;
+}
+
+let result;
+
+if(op==="+") result=a+b;
+if(op==="-") result=a-b;
+if(op==="*") result=a*b;
+
+if(op==="/"){
+if(b===0){
+document.getElementById("numberResult").innerText=
+"Cannot divide by zero.";
+return;
+}
+result=a/b;
+}
+
+document.getElementById("numberResult").innerText=
+"Result = "+result;
+
+}
+
+
+function countText(){
+
+let text=document.getElementById("text").value;
+
+let characters=text.length;
+
+let words=text.trim()===""?
+0:
+text.trim().split(/\s+/).length;
+
+document.getElementById("wordResult").innerText=
+"Words: "+words+" | Characters: "+characters;
+
+}
+
+
+function searchCards(){
+
+let search=document.getElementById("search").value.toLowerCase();
+
+document.querySelectorAll(".searchable").forEach(function(card){
+
+let text=card.innerText.toLowerCase();
+
+if(text.includes(search)){
+card.style.display="";
+}else{
+card.style.display="none";
+}
+
+});
+
+}
+
+
+const questions={
+
+"Indian GK":[
+{
+q:"What is the capital of India?",
+options:["Mumbai","New Delhi","Kolkata","Chennai"],
+answer:1
+},
+{
+q:"Which is the national animal of India?",
+options:["Lion","Tiger","Elephant","Deer"],
+answer:1
+}
+],
+
+"Assam GK":[
+{
+q:"What is the capital of Assam?",
+options:["Guwahati","Dispur","Jorhat","Tezpur"],
+answer:1
+},
+{
+q:"Which river is closely associated with Assam?",
+options:["Ganga","Yamuna","Brahmaputra","Narmada"],
+answer:2
+}
+],
+
+"Reasoning":[
+{
+q:"What comes next: 2, 4, 6, 8, ?",
+options:["9","10","11","12"],
+answer:1
+},
+{
+q:"If CAT has 3 letters, how many letters does DOG have?",
+options:["2","3","4","5"],
+answer:1
+}
+],
+
+"Geography":[
+{
+q:"Which is the largest continent?",
+options:["Africa","Asia","Europe","Australia"],
+answer:1
+},
+{
+q:"Which is the largest ocean?",
+options:["Atlantic","Indian","Pacific","Arctic"],
+answer:2
+}
+]
+
+};
+
+let currentCategory="";
+let currentQuestion=0;
+
+function startMCQ(category){
+
+closeTools();
+
+currentCategory=category;
+currentQuestion=0;
+
+document.getElementById("mcqTool").style.display="block";
+
+document.getElementById("mcqTitle").innerText=
+"📚 "+category+" MCQ";
+
+showQuestion();
+
+document.getElementById("mcqTool").scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+function showQuestion(){
+
+let data=questions[currentCategory][currentQuestion];
+
+document.getElementById("question").innerText=
+(currentQuestion+1)+". "+data.q;
+
+let html="";
+
+data.options.forEach(function(option,index){
+
+html+=
+'<button style="display:block;width:100%;margin:8px 0;background:#eef4ff;color:#1f2937;" onclick="checkAnswer('+index+')">'+
+option+
+'</button>';
+
+});
+
+document.getElementById("options").innerHTML=html;
+
+document.getElementById("mcqResult").innerText="";
+
+}
+
+
+function checkAnswer(index){
+
+let data=questions[currentCategory][currentQuestion];
+
+if(index===data.answer){
+
+document.getElementById("mcqResult").innerText=
+"✅ Correct Answer!";
+
+}else{
+
+document.getElementById("mcqResult").innerText=
+"❌ Wrong Answer. Correct answer: "+
+data.options[data.answer];
+
+}
+
+}
+
+
+function nextQuestion(){
+
+currentQuestion++;
+
+if(currentQuestion>=questions[currentCategory].length){
+
+document.getElementById("question").innerText=
+"🎉 Quiz completed!";
+
+document.getElementById("options").innerHTML="";
+
+document.getElementById("mcqResult").innerText=
+"Well done!";
+
+return;
+}
+
+showQuestion();
+
+}
+
+</script>
+
 </body>
-            </html>
+    </html>
