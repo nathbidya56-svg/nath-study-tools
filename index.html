@@ -714,6 +714,576 @@ showQuestion();
 }
 
 </script>
+<!-- PDF BUILDER -->
+<section id="pdfBuilder" class="tool" style="display:block;max-width:900px;margin:30px auto;">
 
+<h2>📄 PDF Builder</h2>
+
+<p style="text-align:center;color:#6b7280;">
+Create, customize and manage PDF files directly in your browser.
+</p>
+
+<div class="card" style="margin-top:20px;text-align:left;">
+
+<h3>🖼️ Image → PDF</h3>
+
+<input type="file" id="pdfImages" accept="image/*" multiple>
+
+<label>Paper Size</label>
+<select id="pdfPageSize">
+<option value="a4">A4</option>
+<option value="a5">A5</option>
+<option value="letter">Letter</option>
+<option value="legal">Legal</option>
+</select>
+
+<label>Orientation</label>
+<select id="pdfOrientation">
+<option value="portrait">Portrait</option>
+<option value="landscape">Landscape</option>
+</select>
+
+<label>Paper Colour</label>
+<input type="color" id="paperColor" value="#ffffff">
+
+<button onclick="createImagePDF()">Create Image PDF</button>
+
+</div>
+
+
+<div class="card" style="margin-top:20px;text-align:left;">
+
+<h3>📝 Text → PDF</h3>
+
+<textarea id="pdfText"
+rows="10"
+placeholder="Write your text here..."></textarea>
+
+<label>Text Colour</label>
+<input type="color" id="pdfTextColor" value="#000000">
+
+<label>Font Size</label>
+<select id="pdfFontSize">
+<option value="12">12</option>
+<option value="14">14</option>
+<option value="16" selected>16</option>
+<option value="18">18</option>
+<option value="20">20</option>
+<option value="24">24</option>
+<option value="28">28</option>
+</select>
+
+<label>Text Alignment</label>
+<select id="pdfTextAlign">
+<option value="left">Left</option>
+<option value="center">Center</option>
+<option value="right">Right</option>
+</select>
+
+<button onclick="createTextPDF()">Create Text PDF</button>
+
+</div>
+
+
+<div class="card" style="margin-top:20px;text-align:left;">
+
+<h3>🔗 Merge PDF</h3>
+
+<input type="file" id="mergePDFs" accept="application/pdf" multiple>
+
+<button onclick="mergePDF()">Merge PDFs</button>
+
+</div>
+
+
+<div class="card" style="margin-top:20px;text-align:left;">
+
+<h3>✂️ Split PDF</h3>
+
+<input type="file" id="splitPDF" accept="application/pdf">
+
+<label>Pages to extract</label>
+
+<input
+type="text"
+id="splitPages"
+placeholder="Example: 1,3,5 or 2-5">
+
+<button onclick="splitPDF()">Split PDF</button>
+
+</div>
+
+
+<div class="card" style="margin-top:20px;text-align:left;">
+
+<h3>🖼️ PDF → Images</h3>
+
+<input type="file" id="pdfToImage" accept="application/pdf">
+
+<button onclick="convertPDFToImages()">
+Convert PDF to Images
+</button>
+
+</div>
+
+
+<div class="result" id="pdfStatus">
+PDF Builder ready.
+</div>
+
+</section>
+
+
+<!-- PDF LIBRARIES -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs" type="module"></script>
+
+
+<script>
+
+const { jsPDF } = window.jspdf;
+const { PDFDocument } = PDFLib;
+
+
+function pdfStatus(message){
+
+document.getElementById("pdfStatus").innerText=message;
+
+}
+
+
+/* IMAGE → PDF */
+
+async function createImagePDF(){
+
+const files=document.getElementById("pdfImages").files;
+
+if(!files.length){
+
+pdfStatus("Please select at least one image.");
+
+return;
+
+}
+
+const size=document.getElementById("pdfPageSize").value;
+
+const orientation=document.getElementById("pdfOrientation").value;
+
+const paper=document.getElementById("paperColor").value;
+
+const doc=new jsPDF({
+orientation:orientation,
+unit:"mm",
+format:size
+});
+
+for(let i=0;i<files.length;i++){
+
+const file=files[i];
+
+const url=URL.createObjectURL(file);
+
+const img=new Image();
+
+await new Promise(resolve=>{
+
+img.onload=resolve;
+
+img.src=url;
+
+});
+
+let pageWidth=doc.internal.pageSize.getWidth();
+
+let pageHeight=doc.internal.pageSize.getHeight();
+
+doc.setFillColor(paper);
+
+doc.rect(0,0,pageWidth,pageHeight,"F");
+
+const ratio=Math.min(
+(pageWidth-20)/img.width,
+(pageHeight-20)/img.height
+);
+
+const width=img.width*ratio;
+const height=img.height*ratio;
+
+const x=(pageWidth-width)/2;
+const y=(pageHeight-height)/2;
+
+doc.addImage(
+img,
+"JPEG",
+x,
+y,
+width,
+height
+);
+
+if(i<files.length-1){
+
+doc.addPage();
+
+}
+
+URL.revokeObjectURL(url);
+
+}
+
+doc.save("Nath-Study-Tools-Images.pdf");
+
+pdfStatus("✅ Image PDF created successfully!");
+
+}
+
+
+/* TEXT → PDF */
+
+function createTextPDF(){
+
+const text=document.getElementById("pdfText").value;
+
+if(!text.trim()){
+
+pdfStatus("Please enter some text.");
+
+return;
+
+}
+
+const size=document.getElementById("pdfPageSize").value;
+
+const orientation=document.getElementById("pdfOrientation").value;
+
+const paper=document.getElementById("paperColor").value;
+
+const textColor=document.getElementById("pdfTextColor").value;
+
+const fontSize=parseInt(
+document.getElementById("pdfFontSize").value
+);
+
+const alignment=document.getElementById("pdfTextAlign").value;
+
+const doc=new jsPDF({
+orientation:orientation,
+unit:"mm",
+format:size
+});
+
+const pageWidth=doc.internal.pageSize.getWidth();
+
+const pageHeight=doc.internal.pageSize.getHeight();
+
+doc.setFillColor(paper);
+
+doc.rect(0,0,pageWidth,pageHeight,"F");
+
+doc.setTextColor(textColor);
+
+doc.setFontSize(fontSize);
+
+const margin=20;
+
+const maxWidth=pageWidth-(margin*2);
+
+let lines=doc.splitTextToSize(text,maxWidth);
+
+let y=margin;
+
+lines.forEach(function(line){
+
+if(y>pageHeight-margin){
+
+doc.addPage();
+
+doc.setFillColor(paper);
+
+doc.rect(0,0,pageWidth,pageHeight,"F");
+
+doc.setTextColor(textColor);
+
+y=margin;
+
+}
+
+let x=margin;
+
+if(alignment==="center"){
+
+x=pageWidth/2;
+
+doc.text(line,x,y,{align:"center"});
+
+}
+
+else if(alignment==="right"){
+
+x=pageWidth-margin;
+
+doc.text(line,x,y,{align:"right"});
+
+}
+
+else{
+
+doc.text(line,x,y);
+
+}
+
+y+=fontSize*0.6;
+
+});
+
+doc.save("Nath-Study-Tools-Text.pdf");
+
+pdfStatus("✅ Text PDF created successfully!");
+
+}
+
+
+/* MERGE PDF */
+
+async function mergePDF(){
+
+const files=document.getElementById("mergePDFs").files;
+
+if(files.length<2){
+
+pdfStatus("Please select at least 2 PDF files.");
+
+return;
+
+}
+
+const merged=await PDFDocument.create();
+
+for(const file of files){
+
+const bytes=await file.arrayBuffer();
+
+const pdf=await PDFDocument.load(bytes);
+
+const pages=await merged.copyPages(
+pdf,
+pdf.getPageIndices()
+);
+
+pages.forEach(page=>merged.addPage(page));
+
+}
+
+const output=await merged.save();
+
+downloadPDF(
+output,
+"Nath-Study-Tools-Merged.pdf"
+);
+
+pdfStatus("✅ PDFs merged successfully!");
+
+}
+
+
+/* SPLIT PDF */
+
+async function splitPDF(){
+
+const file=document.getElementById("splitPDF").files[0];
+
+if(!file){
+
+pdfStatus("Please select a PDF.");
+
+return;
+
+}
+
+const pageText=document.getElementById("splitPages").value.trim();
+
+if(!pageText){
+
+pdfStatus("Enter page numbers, e.g. 1,3,5 or 2-5.");
+
+return;
+
+}
+
+const sourceBytes=await file.arrayBuffer();
+
+const source=await PDFDocument.load(sourceBytes);
+
+const total=source.getPageCount();
+
+let indexes=[];
+
+pageText.split(",").forEach(part=>{
+
+part=part.trim();
+
+if(part.includes("-")){
+
+let range=part.split("-");
+
+let start=parseInt(range[0]);
+let end=parseInt(range[1]);
+
+for(let i=start;i<=end;i++){
+
+if(i>=1 && i<=total){
+
+indexes.push(i-1);
+
+}
+
+}
+
+}
+
+else{
+
+let page=parseInt(part);
+
+if(page>=1 && page<=total){
+
+indexes.push(page-1);
+
+}
+
+}
+
+});
+
+indexes=[...new Set(indexes)];
+
+if(!indexes.length){
+
+pdfStatus("No valid pages found.");
+
+return;
+
+}
+
+const outputPDF=await PDFDocument.create();
+
+const pages=await outputPDF.copyPages(
+source,
+indexes
+);
+
+pages.forEach(page=>outputPDF.addPage(page));
+
+const output=await outputPDF.save();
+
+downloadPDF(
+output,
+"Nath-Study-Tools-Split.pdf"
+);
+
+pdfStatus("✅ PDF split successfully!");
+
+}
+
+
+/* PDF → IMAGES */
+
+async function convertPDFToImages(){
+
+const file=document.getElementById("pdfToImage").files[0];
+
+if(!file){
+
+pdfStatus("Please select a PDF.");
+
+return;
+
+}
+
+pdfStatus("⏳ Converting PDF pages...");
+
+const bytes=await file.arrayBuffer();
+
+const pdf=await pdfjsLib.getDocument({
+data:bytes
+}).promise;
+
+for(let i=1;i<=pdf.numPages;i++){
+
+const page=await pdf.getPage(i);
+
+const viewport=page.getViewport({
+scale:1.5
+});
+
+const canvas=document.createElement("canvas");
+
+const context=canvas.getContext("2d");
+
+canvas.width=viewport.width;
+canvas.height=viewport.height;
+
+await page.render({
+canvasContext:context,
+viewport:viewport
+}).promise;
+
+canvas.toBlob(function(blob){
+
+const url=URL.createObjectURL(blob);
+
+const a=document.createElement("a");
+
+a.href=url;
+
+a.download=
+"Nath-Study-Tools-Page-"+i+".png";
+
+a.click();
+
+URL.revokeObjectURL(url);
+
+},"image/png");
+
+}
+
+pdfStatus("✅ PDF converted to images!");
+
+}
+
+
+/* DOWNLOAD HELPER */
+
+function downloadPDF(bytes,filename){
+
+const blob=new Blob(
+[bytes],
+{type:"application/pdf"}
+);
+
+const url=URL.createObjectURL(blob);
+
+const a=document.createElement("a");
+
+a.href=url;
+
+a.download=filename;
+
+document.body.appendChild(a);
+
+a.click();
+
+a.remove();
+
+URL.revokeObjectURL(url);
+
+}
+
+                    </script>
 </body>
     </html>
