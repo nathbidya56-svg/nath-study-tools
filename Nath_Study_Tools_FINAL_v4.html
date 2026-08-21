@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nath Study & Tools</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+font-family:Arial,sans-serif;
+background:#f5f7fb;
+color:#1f2937;
+line-height:1.5
+}
+
+header{
+background:linear-gradient(135deg,#2563eb,#4f46e5);
+color:white;
+text-align:center;
+padding:25px 15px
+}
+
+header h1{font-size:28px}
+header p{font-size:14px;margin-top:5px}
+
+nav{
+background:white;
+padding:12px;
+text-align:center;
+box-shadow:0 2px 8px #ddd;
+position:sticky;
+top:0;
+z-index:10
+}
+
+nav a{
+text-decoration:none;
+color:#2563eb;
+font-weight:bold;
+margin:0 8px;
+font-size:14px
+}
+
+.hero{
+text-align:center;
+padding:35px 15px 20px
+}
+
+.hero h2{font-size:25px}
+.hero p{color:#6b7280;margin-top:8px}
+
+.search{
+max-width:600px;
+margin:20px auto;
+padding:14px 18px;
+width:90%;
+border:1px solid #ddd;
+border-radius:10px;
+font-size:15px;
+outline:none
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:10px
+}
+
+.section-title{
+text-align:center;
+margin:25px 0 15px;
+font-size:22px
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 2px 10px #ddd;
+text-align:center
+}
+
+.card .icon{
+font-size:35px;
+margin-bottom:8px
+}
+
+.card h3{font-size:18px}
+.card p{
+font-size:13px;
+color:#6b7280;
+margin:8px 0 15px
+}
+
+button{
+background:#2563eb;
+color:white;
+border:0;
+padding:10px 18px;
+border-radius:7px;
+cursor:pointer;
+font-weight:bold
+}
+
+button:hover{background:#1d4ed8}
+
+.tool{
+display:none;
+background:white;
+max-width:600px;
+margin:25px auto;
+padding:25px;
+border-radius:12px;
+box-shadow:0 2px 12px #ddd
+}
+
+.tool h2{text-align:center;margin-bottom:18px}
+
+input,textarea,select{
+width:100%;
+padding:12px;
+margin:7px 0 12px;
+border:1px solid #ccc;
+border-radius:7px;
+font-size:15px
+}
+
+.result{
+margin-top:15px;
+padding:15px;
+background:#eef4ff;
+border-radius:8px;
+font-weight:bold;
+text-align:center
+}
+
+.close{
+background:#6b7280;
+margin-top:10px
+}
+
+footer{
+margin-top:40px;
+background:#111827;
+color:white;
+text-align:center;
+padding:25px 10px;
+font-size:13px
+}
+
+.hidden{display:none}
+
+/* ===== Resume Builder ===== */
+.resume-tool{max-width:1100px!important;padding:14px!important;background:#f8fafc!important}
+.resume-tool-title{text-align:center;margin-bottom:12px}.resume-tool-title h2{margin-bottom:4px}.resume-tool-title p{color:#64748b;font-size:13px}
+.resume-app{display:grid;grid-template-columns:360px minmax(0,1fr);gap:16px;align-items:start}
+.resume-panel{background:#fff;padding:14px;border-radius:12px;max-height:900px;overflow:auto;box-shadow:0 2px 10px #0001}
+.resume-preview{background:#dfe5ec;padding:12px;border-radius:12px;overflow:auto;min-height:680px}
+.resume-tool .resume{--accent:#2563eb;--section-bg:#eef4ff;width:210mm;min-height:297mm;margin:0 auto;background:#fff;padding:10mm 11mm;color:#172033;box-shadow:0 2px 12px #0003;font-size:14px;overflow-wrap:anywhere}
+.resume-tool .rhead{display:flex;gap:14px;align-items:center;border-bottom:2px solid var(--accent);padding-bottom:9px;margin-bottom:10px}
+.resume-tool .photo{width:27mm;height:34mm;object-fit:cover;border-radius:5px;display:none}.resume-tool .photo.show{display:block}
+.resume-tool .name{font-size:28px;font-weight:800;line-height:1.12;margin-bottom:5px;color:var(--accent)}
+.resume-tool .contact{font-size:12.5px;color:#526174;line-height:1.45}
+.resume-tool .section{margin:0 0 9px;break-inside:auto}
+.resume-tool .section-title{font-size:15px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.35px;line-height:1.2;padding:5px 7px;margin:0 0 6px;background:var(--section-bg);border-bottom:1.5px solid var(--accent);break-after:avoid}
+.resume-tool .section-title.none{border-bottom:0}.resume-tool .section-title.double{border-bottom:3px double var(--accent)}.resume-tool .section-title.dotted{border-bottom:2px dotted var(--accent)}
+.resume-tool .summary{font-size:13px;line-height:1.45}.resume-tool .entry{margin:0 0 7px;break-inside:avoid}.resume-tool .entry-head{display:flex;justify-content:space-between;gap:8px}.resume-tool .entry-title{font-weight:800;font-size:13px}.resume-tool .entry-meta{font-size:12px;color:#5c6878}.resume-tool .entry-desc{font-size:12px;line-height:1.4;margin-top:2px}.resume-tool .bullets{margin:2px 0 0 18px;padding:0;font-size:12.5px;line-height:1.4}
+.resume-tool .resume.paper-soft{background:#fafafa}.resume-tool .resume.template-classic{font-family:Georgia,'Times New Roman',serif}.resume-tool .resume.template-classic .name{color:var(--accent)}.resume-tool .resume.template-modern .rhead{background:linear-gradient(90deg,var(--section-bg),transparent);padding:9px;border-radius:6px;border-bottom-width:2px}.resume-tool .resume.template-modern .section-title{border-radius:4px}
+@media(max-width:900px){.resume-app{grid-template-columns:1fr}.resume-panel{max-height:none}.resume-preview{min-height:500px}.resume-tool .resume{transform-origin:top left}}
+@page{size:A4 portrait;margin:6mm}
+@media print{
+ html,body{background:#fff!important;margin:0!important;padding:0!important}
+ body.print-resume *{visibility:hidden!important}
+ body.print-resume .resume-print-wrap,body.print-resume .resume-print-wrap *{visibility:visible!important}
+ body.print-resume .resume-print-wrap{position:absolute!important;left:0!important;top:0!important;width:100%!important;background:#fff!important;padding:0!important;overflow:visible!important}
+ body.print-resume .resume-panel,body.print-resume .resume-tool-title,body.print-resume .resume-tool>.close,body.print-resume .resume-preview>.toolbar{display:none!important}
+ body.print-resume .resume-preview{display:block!important;background:#fff!important;padding:0!important;min-height:0!important;overflow:visible!important}
+ body.print-resume .resume{width:100%!important;min-height:0!important;margin:0!important;padding:8mm 9mm!important;box-shadow:none!important;font-size:14px!important}
+body.print-resume .resume .name{font-size:28px!important}
+body.print-resume .resume .contact{font-size:12.5px!important}
+body.print-resume .resume .section-title{font-size:15px!important}
+body.print-resume .resume .summary{font-size:13px!important}
+body.print-resume .resume .entry-title{font-size:13px!important}
+body.print-resume .resume .entry-meta{font-size:12px!important}
+body.print-resume .resume .entry-desc{font-size:12px!important}
+body.print-resume .resume .bullets{font-size:12.5px!important}
+ body.print-resume .resume .section{break-inside:auto}.resume-tool .entry{break-inside:avoid!important}.resume-tool .section-title{break-after:avoid!important}
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>📚 Nath Study & Tools</h1>
+<p>Free Online Tools & Exam Preparation</p>
+</header>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#tools">Tools</a>
+<a href="#resumeBuilder">Resume Builder</a>
+<a href="#mcq">Exam MCQ</a>
+<a href="#about">About</a>
+</nav>
+
+<section class="hero" id="home">
+<h2>Learn, Practice & Use Free Tools</h2>
+<p>Useful online tools and exam practice resources, all in one place.</p>
+
+<input
+class="search"
+id="search"
+type="text"
+placeholder="🔎 Search tools or exams..."
+onkeyup="searchCards()">
+</section>
+
+<div class="container">
+
+<h2 class="section-title" id="tools">🛠️ Free Online Tools</h2>
+
+<div class="grid" id="toolGrid">
+
+<div class="card searchable">
+<div class="icon">🧮</div>
+<h3>Percentage Calculator</h3>
+<p>Calculate percentages quickly and easily.</p>
+<button onclick="openTool('percentage')">Use Tool</button>
+</div>
+
+<div class="card searchable">
+<div class="icon">📝</div>
+<h3>Word Counter</h3>
+<p>Count words and characters in your text.</p>
+<button onclick="openTool('word')">Use Tool</button>
+</div>
+
+<div class="card searchable">
+<div class="icon">📄</div>
+<h3>PDF Builder</h3>
+<p>Create, customize, merge, split and convert PDF files.</p>
+<button onclick="openTool('pdf')">Use Tool</button>
+</div>
+
+</div>
+
+
+<!-- Percentage -->
+
+<div class="tool" id="percentage">
+<h2>🧮 Percentage Calculator</h2>
+
+<label>What is the percentage?</label>
+<input id="percent" type="number" placeholder="Example: 20">
+
+<label>Of number:</label>
+<input id="percentNumber" type="number" placeholder="Example: 500">
+
+<button onclick="calculatePercentage()">Calculate</button>
+
+<div class="result" id="percentResult">Result will appear here</div>
+
+<button class="close" onclick="closeTools()">Close</button>
+</div>
+<!-- Word -->
+
+<div class="tool" id="word">
+<h2>📝 Word & Character Counter</h2>
+
+<textarea id="text" rows="7"
+placeholder="Type or paste your text here..."
+oninput="countText()"></textarea>
+
+<div class="result" id="wordResult">
+Words: 0 | Characters: 0
+</div>
+
+<button class="close" onclick="closeTools()">Close</button>
+</div>
+
+
+<!-- PDF BUILDER -->
+<div class="tool" id="pdf">
+<h2>📄 PDF Builder</h2>
+<p style="text-align:center;color:#6b7280;margin-bottom:15px;">
+Create PDFs from images or text, merge/split PDFs, and convert PDF pages to images.
+</p>
+
+<div class="card" style="margin-bottom:15px;text-align:left;">
+<h3>🖼️ Image → PDF</h3>
+<label>Select images</label>
+<input id="pdfImages" type="file" accept="image/*" multiple>
+
+<label>Paper size</label>
+<select id="pdfPageSize">
+<option value="a4">A4</option>
+<option value="a5">A5</option>
+<option value="letter">Letter</option>
+<option value="legal">Legal</option>
+</select>
+
+<label>Orientation</label>
+<select id="pdfOrientation">
+<option value="portrait">Portrait</option>
+<option value="landscape">Landscape</option>
+</select>
+
+<label>Paper colour</label>
+<input id="pdfPaperColor" type="color" value="#ffffff">
+
+<button onclick="createImagePDF()">Create & Download PDF</button>
+</div>
+
+<div class="card" style="margin-bottom:15px;text-align:left;">
+<h3>📝 Text → PDF</h3>
+<textarea id="pdfText" rows="8" placeholder="Write your text here..."></textarea>
+
+<label>Paper size</label>
+<select id="pdfTextPageSize">
+<option value="a4">A4</option>
+<option value="a5">A5</option>
+<option value="letter">Letter</option>
+<option value="legal">Legal</option>
+</select>
+
+<label>Orientation</label>
+<select id="pdfTextOrientation">
+<option value="portrait">Portrait</option>
+<option value="landscape">Landscape</option>
+</select>
+
+<label>Paper colour</label>
+<input id="pdfTextPaperColor" type="color" value="#ffffff">
+
+<label>Text colour</label>
+<input id="pdfTextColor" type="color" value="#000000">
+
+<label>Text size</label>
+<select id="pdfFontSize">
+<option value="10">10</option>
+<option value="12">12</option>
+<option value="14">14</option>
+<option value="16" selected>16</option>
+<option value="18">18</option>
+<option value="20">20</option>
+<option value="24">24</option>
+<option value="28">28</option>
+</select>
+
+<label>Text alignment</label>
+<select id="pdfTextAlign">
+<option value="left">Left</option>
+<option value="center">Center</option>
+<option value="right">Right</option>
+</select>
+
+<button onclick="createTextPDF()">Create & Download PDF</button>
+</div>
+
+<div class="card" style="margin-bottom:15px;text-align:left;">
+<h3>🔗 Merge PDF</h3>
+<input id="mergePDFs" type="file" accept="application/pdf" multiple>
+<button onclick="mergePDF()">Merge & Download</button>
+</div>
+
+<div class="card" style="margin-bottom:15px;text-align:left;">
+<h3>✂️ Split PDF</h3>
+<input id="splitPDF" type="file" accept="application/pdf">
+<input id="splitPages" type="text" placeholder="Pages: 1,3,5 or 2-5">
+<button onclick="splitPDF()">Split & Download</button>
+</div>
+
+<div class="card" style="margin-bottom:15px;text-align:left;">
+<h3>🖼️ PDF → Images</h3>
+<input id="pdfToImage" type="file" accept="application/pdf">
+<button onclick="convertPDFToImages()">Convert Pages to PNG</button>
+</div>
+
+<div class="result" id="pdfStatus">PDF Builder ready.</div>
+<button class="close" onclick="closeTools()">Close</button>
+</div>
+
+
+<div class="card searchable">
+<div class="icon">📄</div>
+<h3>Resume Builder</h3>
+<p>Create a professional A4 resume for students, freshers or experienced professionals.</p>
+<button onclick="openTool('resumeBuilder')">Build Resume</button>
+</div>
+
+
+<div class="tool resume-tool" id="resumeBuilder">
+<div class="resume-tool-title"><h2>📄 Professional Resume Builder</h2><p>One builder for students, freshers and experienced professionals.</p></div>
+<div class="resume-app">
+<section class="resume-panel">
+<h2>Build your Resume</h2>
+
+<div class="group">
+<h3>🎨 Resume Style</h3>
+<div class="row">
+<div><label>Template</label><select id="template"><option value="clean">Clean</option><option value="classic">Classic</option><option value="modern">Modern</option></select></div>
+<div><label>Font size</label><select id="fontSize"><option value="12">Small</option><option value="14" selected>Medium</option><option value="15">Large</option><option value="16">Extra Large</option></select></div>
+</div>
+<div class="row">
+<div><label>Paper colour</label><input id="paper" type="color" value="#ffffff"></div>
+<div><label>Text colour</label><input id="text" type="color" value="#172033"></div>
+</div>
+<div class="row">
+<div><label>Accent colour</label><input id="accent" type="color" value="#2563eb"></div>
+<div><label>Section underline</label><select id="underline"><option value="solid">Solid</option><option value="double">Double</option><option value="dotted">Dotted</option><option value="none">None</option></select></div>
+</div>
+<div class="row">
+<div><label>Section highlight</label><input id="sectionBg" type="color" value="#eef4ff"></div>
+<div><label>Paper style</label><select id="paperStyle"><option value="plain">Plain</option><option value="soft">Soft</option></select></div>
+</div>
+</div>
+
+<div class="group">
+<h3>👤 Personal Information</h3>
+<label>Full Name</label><input id="name" placeholder="Your full name">
+<div class="row"><div><label>Phone</label><input id="phone" placeholder="+91..."></div><div><label>Email</label><input id="email" placeholder="you@email.com"></div></div>
+<label>Address / Location</label><input id="address" placeholder="City, State, Country">
+<div class="row">
+<div><label>Show either</label><select id="ageMode"><option value="none">Don't show</option><option value="dob">Date of Birth</option><option value="age">Age</option></select></div>
+<div><label id="ageLabel">Value</label><input id="ageValue" placeholder=""></div>
+</div>
+<div class="row"><div><label>Gender (optional)</label><select id="gender"><option value="">Select Gender</option><option>Male</option><option>Female</option><option>Other</option></select></div><div><label>Nationality (optional)</label><input id="nationality"></div></div>
+<div class="row"><div><label>Photo</label><input id="photo" type="file" accept="image/*"></div><div><label>Blood group (optional)</label><input id="blood"></div></div>
+<label>Personal details (optional)</label><textarea id="personal" placeholder="Other details you want to show"></textarea>
+</div>
+
+<div class="group">
+<h3>🎯 Summary / Objective</h3>
+<textarea id="summary" placeholder="Write a short professional summary or career objective..."></textarea>
+</div>
+
+<div class="group">
+<h3>🎓 Education</h3>
+<div id="education"></div>
+<button class="secondary" type="button" onclick="addEducation()">+ Add Education</button>
+</div>
+
+<div class="group">
+<h3>📚 Other Qualifications / Certifications</h3>
+<div id="qualifications"></div>
+<button class="secondary" type="button" onclick="addQualification()">+ Add Qualification</button>
+</div>
+
+<div class="group">
+<h3>💼 Work Experience</h3>
+<div id="experience"></div>
+<button class="secondary" type="button" onclick="addExperience()">+ Add Experience</button>
+<p class="small">Students/freshers can leave this empty.</p>
+</div>
+
+<div class="group">
+<h3>🛠️ Skills</h3>
+<textarea id="skills" placeholder="e.g. MS Office, Data Entry, Communication, HTML..."></textarea>
+</div>
+
+<div class="group">
+<h3>🌐 Languages</h3>
+<textarea id="languages" placeholder="e.g. Assamese, Bengali, English..."></textarea>
+</div>
+
+<div class="group">
+<h3>📁 Projects</h3>
+<div id="projects"></div>
+<button class="secondary" type="button" onclick="addProject()">+ Add Project</button>
+</div>
+
+<div class="group">
+<h3>🏆 Achievements</h3><textarea id="achievements" placeholder="Awards, competitions, academic achievements..."></textarea>
+</div>
+<div class="group">
+<h3>🎨 Hobbies & Interests</h3><textarea id="hobbies" placeholder="Reading, Sports, Music, Travelling..."></textarea>
+</div>
+<div class="group">
+<h3>⭐ Extra-Curricular Activities</h3><textarea id="extra" placeholder="Sports, volunteering, clubs, cultural activities..."></textarea>
+</div>
+<div class="group">
+<h3>🔗 Online Profiles</h3>
+<div class="row"><input id="linkedin" placeholder="LinkedIn URL"><input id="portfolio" placeholder="Portfolio / Website"></div>
+</div>
+
+<div class="group">
+<h3>📞 References</h3><textarea id="references" placeholder="Reference name, designation, contact..."></textarea>
+</div>
+
+<button class="primary" style="width:100%;font-size:15px" onclick="updatePreview()">🔄 Update Preview</button>
+<button class="primary" style="width:100%;margin-top:8px;background:#16a34a" onclick="downloadPDF()">📥 Download / Save PDF</button>
+</section>
+<section class="resume-preview resume-print-wrap">
+<div class="toolbar">
+<button class="secondary" onclick="updatePreview()">👁️ Update Preview</button>
+<button class="primary" onclick="downloadPDF()">📥 Save PDF</button>
+<button class="secondary" onclick="printResume()">🖨️ Print</button>
+</div>
+<div id="resume" class="resume"></div>
+</section>
+</div>
+<button class="close" onclick="closeTools()">Close</button>
+</div>
+
+
+<h2 class="section-title" id="mcq">📚 Exam MCQ Practice</h2>
+
+<div class="grid">
+
+<div class="card searchable">
+<div class="icon">🇮🇳</div>
+<h3>Indian GK</h3>
+<p>Practice general knowledge questions about India.</p>
+<button onclick="startMCQ('Indian GK')">Start MCQ</button>
+</div>
+
+<div class="card searchable">
+<div class="icon">🏛️</div>
+<h3>Assam GK</h3>
+<p>Practice important Assam general knowledge questions.</p>
+<button onclick="startMCQ('Assam GK')">Start MCQ</button>
+</div>
+
+<div class="card searchable">
+<div class="icon">🧠</div>
+<h3>Reasoning</h3>
+<p>Improve your reasoning skills with practice questions.</p>
+<button onclick="startMCQ('Reasoning')">Start MCQ</button>
+</div>
+
+<div class="card searchable">
+<div class="icon">🌍</div>
+<h3>Geography</h3>
+<p>Practice geography questions for competitive exams.</p>
+<button onclick="startMCQ('Geography')">Start MCQ</button>
+</div>
+
+</div>
+
+
+<div class="tool" id="mcqTool">
+<h2 id="mcqTitle">MCQ Quiz</h2>
+
+<p id="question"></p>
+
+<div id="options"></div>
+
+<div class="result" id="mcqResult"></div>
+
+<button onclick="nextQuestion()">Next Question</button>
+<button class="close" onclick="closeTools()">Close</button>
+</div>
+
+
+<h2 class="section-title" id="about">ℹ️ About Us</h2>
+
+<div class="card">
+<p>
+Welcome to Nath Study & Tools — a free platform for
+useful online tools and exam preparation resources.
+Our goal is to make learning, practice and everyday
+online tasks simple and accessible for everyone.
+</p>
+</div>
+
+<h2 class="section-title" id="contact">📩 Contact Us</h2>
+
+<div class="card">
+<p>
+Have a question, suggestion or feedback?
+You can contact us by email.
+</p>
+
+<p style="margin-top:15px;">
+📧 <a href="mailto:nathjayanta8880@gmail.com">
+nathjayanta8880@gmail.com
+</a>
+</p>
+</div>
+
+<h2 class="section-title" id="privacy">🔒 Privacy Policy</h2>
+
+<div class="card">
+<p>
+Nath Study & Tools respects your privacy. We do not
+intentionally collect personal information through
+our basic online tools unless you choose to provide it.
+</p>
+
+<p style="margin-top:12px;">
+Our website may use third-party services such as
+advertising or analytics services in the future.
+These services may use cookies or similar technologies
+according to their own policies.
+</p>
+
+<p style="margin-top:12px;">
+We may update this Privacy Policy when our website,
+services or features change.
+</p>
+
+<p style="margin-top:12px;">
+If you have any privacy-related questions, please
+contact us at:
+<br><br>
+📧 nathjayanta8880@gmail.com
+</p>
+</div>
+
+</div>
+
+
+<footer>
+<p>
+<a href="#about">About</a> |
+<a href="#contact">Contact</a> |
+<a href="#privacy">Privacy Policy</a>
+</p>
+<br>
+<p>© 2026 Nath Study & Tools. All Rights Reserved.</p>
+</footer>
+
+
+
+<!-- PDF libraries: CDN fallback loader for mobile/GitHub Pages -->
+<script>
+(function () {
+  function loadScript(urls, done) {
+    let i = 0;
+    function next() {
+      if (i >= urls.length) { done(false); return; }
+      const s = document.createElement("script");
+      s.src = urls[i++];
+      s.async = false;
+      s.onload = function () { done(true); };
+      s.onerror = function () {
+        s.remove();
+        next();
+      };
+      document.head.appendChild(s);
+    }
+    next();
+  }
+
+  loadScript([
+    "https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js",
+    "https://unpkg.com/jspdf@2.5.2/dist/jspdf.umd.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"
+  ], function(ok) {
+    window.__jspdfLoaded = ok;
+    if (!ok) console.error("jsPDF could not be loaded from any CDN.");
+  });
+
+  loadScript([
+    "https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js",
+    "https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"
+  ], function(ok) {
+    window.__pdfLibLoaded = ok;
+    if (!ok) console.error("pdf-lib could not be loaded from any CDN.");
+  });
+
+  loadScript([
+    "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js",
+    "https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"
+  ], function(ok) {
+    window.__pdfjsLoaded = ok;
+    if (ok && window.pdfjsLib) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
+    }
+  });
+})();
+</script>
+
+<script>
+
+function openTool(id){
+
+closeTools();
+
+document.getElementById(id).style.display="block";
+
+document.getElementById(id).scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+function closeTools(){
+
+document.querySelectorAll(".tool").forEach(function(tool){
+tool.style.display="none";
+});
+
+}
+
+
+function calculatePercentage(){
+
+let p=parseFloat(document.getElementById("percent").value);
+let n=parseFloat(document.getElementById("percentNumber").value);
+
+if(isNaN(p)||isNaN(n)){
+document.getElementById("percentResult").innerText=
+"Please enter both numbers.";
+return;
+}
+
+let result=(p*n)/100;
+
+document.getElementById("percentResult").innerText=
+p+"% of "+n+" = "+result;
+
+}
+
+
+function calculateAge(){
+
+let dob=document.getElementById("dob").value;
+
+if(!dob){
+document.getElementById("ageResult").innerText=
+"Please select your date of birth.";
+return;
+}
+
+let birth=new Date(dob);
+let today=new Date();
+
+let years=today.getFullYear()-birth.getFullYear();
+let months=today.getMonth()-birth.getMonth();
+let days=today.getDate()-birth.getDate();
+
+if(days<0){
+months--;
+days+=new Date(
+today.getFullYear(),
+today.getMonth(),
+0
+).getDate();
+}
+
+if(months<0){
+years--;
+months+=12;
+}
+
+document.getElementById("ageResult").innerText=
+"Your age is "+years+" years, "+
+months+" months and "+days+" days.";
+
+}
+
+
+function calculateNumber(){
+
+let a=parseFloat(document.getElementById("num1").value);
+let b=parseFloat(document.getElementById("num2").value);
+let op=document.getElementById("operation").value;
+
+if(isNaN(a)||isNaN(b)){
+document.getElementById("numberResult").innerText=
+"Please enter both numbers.";
+return;
+}
+
+let result;
+
+if(op==="+") result=a+b;
+if(op==="-") result=a-b;
+if(op==="*") result=a*b;
+
+if(op==="/"){
+if(b===0){
+document.getElementById("numberResult").innerText=
+"Cannot divide by zero.";
+return;
+}
+result=a/b;
+}
+
+document.getElementById("numberResult").innerText=
+"Result = "+result;
+
+}
+
+
+function countText(){
+
+let text=document.getElementById("text").value;
+
+let characters=text.length;
+
+let words=text.trim()===""?
+0:
+text.trim().split(/\s+/).length;
+
+document.getElementById("wordResult").innerText=
+"Words: "+words+" | Characters: "+characters;
+
+}
+
+
+function searchCards(){
+
+let search=document.getElementById("search").value.toLowerCase();
+
+document.querySelectorAll(".searchable").forEach(function(card){
+
+let text=card.innerText.toLowerCase();
+
+if(text.includes(search)){
+card.style.display="";
+}else{
+card.style.display="none";
+}
+
+});
+
+}
+
+
+const questions={
+
+"Indian GK":[
+{
+q:"What is the capital of India?",
+options:["Mumbai","New Delhi","Kolkata","Chennai"],
+answer:1
+},
+{
+q:"Which is the national animal of India?",
+options:["Lion","Tiger","Elephant","Deer"],
+answer:1
+}
+],
+
+"Assam GK":[
+{
+q:"What is the capital of Assam?",
+options:["Guwahati","Dispur","Jorhat","Tezpur"],
+answer:1
+},
+{
+q:"Which river is closely associated with Assam?",
+options:["Ganga","Yamuna","Brahmaputra","Narmada"],
+answer:2
+}
+],
+
+"Reasoning":[
+{
+q:"What comes next: 2, 4, 6, 8, ?",
+options:["9","10","11","12"],
+answer:1
+},
+{
+q:"If CAT has 3 letters, how many letters does DOG have?",
+options:["2","3","4","5"],
+answer:1
+}
+],
+
+"Geography":[
+{
+q:"Which is the largest continent?",
+options:["Africa","Asia","Europe","Australia"],
+answer:1
+},
+{
+q:"Which is the largest ocean?",
+options:["Atlantic","Indian","Pacific","Arctic"],
+answer:2
+}
+]
+
+};
+
+let currentCategory="";
+let currentQuestion=0;
+
+function startMCQ(category){
+
+closeTools();
+
+currentCategory=category;
+currentQuestion=0;
+
+document.getElementById("mcqTool").style.display="block";
+
+document.getElementById("mcqTitle").innerText=
+"📚 "+category+" MCQ";
+
+showQuestion();
+
+document.getElementById("mcqTool").scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+function showQuestion(){
+
+let data=questions[currentCategory][currentQuestion];
+
+document.getElementById("question").innerText=
+(currentQuestion+1)+". "+data.q;
+
+let html="";
+
+data.options.forEach(function(option,index){
+
+html+=
+'<button style="display:block;width:100%;margin:8px 0;background:#eef4ff;color:#1f2937;" onclick="checkAnswer('+index+')">'+
+option+
+'</button>';
+
+});
+
+document.getElementById("options").innerHTML=html;
+
+document.getElementById("mcqResult").innerText="";
+
+}
+
+
+function checkAnswer(index){
+
+let data=questions[currentCategory][currentQuestion];
+
+if(index===data.answer){
+
+document.getElementById("mcqResult").innerText=
+"✅ Correct Answer!";
+
+}else{
+
+document.getElementById("mcqResult").innerText=
+"❌ Wrong Answer. Correct answer: "+
+data.options[data.answer];
+
+}
+
+}
+
+
+function nextQuestion(){
+
+currentQuestion++;
+
+if(currentQuestion>=questions[currentCategory].length){
+
+document.getElementById("question").innerText=
+"🎉 Quiz completed!";
+
+document.getElementById("options").innerHTML="";
+
+document.getElementById("mcqResult").innerText=
+"Well done!";
+
+return;
+}
+
+showQuestion();
+
+}
+
+
+/* ===== PDF BUILDER ===== */
+function pdfSetStatus(message){
+  const el = document.getElementById("pdfStatus");
+  if (el) el.innerText = message;
+}
+
+function hexToRgb(hex){
+  const n = hex.replace("#","");
+  return [
+    parseInt(n.substring(0,2),16),
+    parseInt(n.substring(2,4),16),
+    parseInt(n.substring(4,6),16)
+  ];
+}
+
+function getJsPDF(){
+  if (!window.jspdf || !window.jspdf.jsPDF) {
+    throw new Error("PDF library could not load. Check your internet connection, then refresh the page.");
+  }
+  return window.jspdf.jsPDF;
+}
+
+function createImagePDF(){
+  try {
+    const files = Array.from(document.getElementById("pdfImages").files || []);
+    if (!files.length) return pdfSetStatus("Please select at least one image.");
+
+    const jsPDF = getJsPDF();
+    const doc = new jsPDF({
+      unit:"mm",
+      format:document.getElementById("pdfPageSize").value,
+      orientation:document.getElementById("pdfOrientation").value
+    });
+    const paper = hexToRgb(document.getElementById("pdfPaperColor").value);
+
+    let pending = files.length;
+    files.forEach((file, index) => {
+      const reader = new FileReader();
+      reader.onload = function(e){
+        const img = new Image();
+        img.onload = function(){
+          if (index > 0) doc.addPage();
+          const w = doc.internal.pageSize.getWidth();
+          const h = doc.internal.pageSize.getHeight();
+
+          doc.setFillColor(...paper);
+          doc.rect(0,0,w,h,"F");
+
+          const margin = 10;
+          const scale = Math.min((w-2*margin)/img.width, (h-2*margin)/img.height);
+          const iw = img.width * scale;
+          const ih = img.height * scale;
+          const format = (file.type || "image/jpeg").toLowerCase().includes("png") ? "PNG" : "JPEG";
+          doc.addImage(img, format, (w-iw)/2, (h-ih)/2, iw, ih);
+
+          pending--;
+          if (pending === 0) {
+            doc.save("Nath-Study-Tools-Images.pdf");
+            pdfSetStatus("✅ Image PDF downloaded successfully.");
+          }
+        };
+        img.onerror = () => pdfSetStatus("Could not read one of the images.");
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  } catch(err) {
+    pdfSetStatus("❌ " + err.message);
+  }
+}
+
+function createTextPDF(){
+  try {
+    const text = document.getElementById("pdfText").value;
+    if (!text.trim()) return pdfSetStatus("Please enter some text.");
+
+    const jsPDF = getJsPDF();
+    const doc = new jsPDF({
+      unit:"mm",
+      format:document.getElementById("pdfTextPageSize").value,
+      orientation:document.getElementById("pdfTextOrientation").value
+    });
+
+    const paper = hexToRgb(document.getElementById("pdfTextPaperColor").value);
+    const ink = hexToRgb(document.getElementById("pdfTextColor").value);
+    const fontSize = Number(document.getElementById("pdfFontSize").value);
+    const align = document.getElementById("pdfTextAlign").value;
+
+    const w = doc.internal.pageSize.getWidth();
+    const h = doc.internal.pageSize.getHeight();
+    const margin = 15;
+    const maxWidth = w - margin*2;
+
+    function paintPage(){
+      doc.setFillColor(...paper);
+      doc.rect(0,0,w,h,"F");
+      doc.setTextColor(...ink);
+      doc.setFont("helvetica","normal");
+      doc.setFontSize(fontSize);
+    }
+
+    paintPage();
+    const lines = doc.splitTextToSize(text, maxWidth);
+    let y = margin;
+    const lineHeight = Math.max(fontSize * 0.45, 5);
+
+    lines.forEach(line => {
+      if (y > h - margin) {
+        doc.addPage();
+        paintPage();
+        y = margin;
+      }
+      let x = margin;
+      if (align === "center") x = w/2;
+      if (align === "right") x = w-margin;
+      doc.text(line, x, y, {align:align});
+      y += lineHeight;
+    });
+
+    doc.save("Nath-Study-Tools-Text.pdf");
+    pdfSetStatus("✅ Text PDF downloaded successfully.");
+  } catch(err) {
+    pdfSetStatus("❌ " + err.message);
+  }
+}
+
+async function mergePDF(){
+  try {
+    if (!window.PDFLib) throw new Error("PDF library did not load.");
+    const files = Array.from(document.getElementById("mergePDFs").files || []);
+    if (files.length < 2) return pdfSetStatus("Please select at least 2 PDF files.");
+
+    const merged = await PDFLib.PDFDocument.create();
+    for (const file of files) {
+      const source = await PDFLib.PDFDocument.load(await file.arrayBuffer());
+      const pages = await merged.copyPages(source, source.getPageIndices());
+      pages.forEach(p => merged.addPage(p));
+    }
+
+    downloadBlob(await merged.save(), "Nath-Study-Tools-Merged.pdf", "application/pdf");
+    pdfSetStatus("✅ PDFs merged and downloaded.");
+  } catch(err) {
+    pdfSetStatus("❌ " + err.message);
+  }
+}
+
+function parsePageSelection(value, total){
+  const set = new Set();
+  value.split(",").forEach(part => {
+    part = part.trim();
+    if (!part) return;
+    if (part.includes("-")) {
+      const [a,b] = part.split("-").map(Number);
+      if (Number.isFinite(a) && Number.isFinite(b)) {
+        for(let p=Math.min(a,b); p<=Math.max(a,b); p++)
+          if(p>=1 && p<=total) set.add(p-1);
+      }
+    } else {
+      const p = Number(part);
+      if (Number.isInteger(p) && p>=1 && p<=total) set.add(p-1);
+    }
+  });
+  return Array.from(set).sort((a,b)=>a-b);
+}
+
+async function splitPDF(){
+  try {
+    if (!window.PDFLib) throw new Error("PDF library did not load.");
+    const file = document.getElementById("splitPDF").files[0];
+    if (!file) return pdfSetStatus("Please select a PDF.");
+
+    const selection = document.getElementById("splitPages").value;
+    const source = await PDFLib.PDFDocument.load(await file.arrayBuffer());
+    const indexes = parsePageSelection(selection, source.getPageCount());
+    if (!indexes.length) return pdfSetStatus("Enter valid pages, e.g. 1,3,5 or 2-5.");
+
+    const out = await PDFLib.PDFDocument.create();
+    const pages = await out.copyPages(source, indexes);
+    pages.forEach(p => out.addPage(p));
+
+    downloadBlob(await out.save(), "Nath-Study-Tools-Split.pdf", "application/pdf");
+    pdfSetStatus("✅ Selected pages split and downloaded.");
+  } catch(err) {
+    pdfSetStatus("❌ " + err.message);
+  }
+}
+
+async function convertPDFToImages(){
+  try {
+    if (!window.pdfjsLib) throw new Error("PDF image library did not load.");
+    const file = document.getElementById("pdfToImage").files[0];
+    if (!file) return pdfSetStatus("Please select a PDF.");
+
+    const pdf = await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise;
+    for(let i=1; i<=pdf.numPages; i++){
+      const page = await pdf.getPage(i);
+      const viewport = page.getViewport({scale:1.5});
+      const canvas = document.createElement("canvas");
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      await page.render({canvasContext:canvas.getContext("2d"), viewport}).promise;
+
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+      downloadBlob(blob, "Nath-Study-Tools-Page-" + i + ".png", "image/png");
+      await new Promise(r => setTimeout(r, 150));
+    }
+    pdfSetStatus("✅ All PDF pages converted to PNG images.");
+  } catch(err) {
+    pdfSetStatus("❌ " + err.message);
+  }
+}
+
+function downloadBlob(data, filename, type){
+  const blob = data instanceof Blob ? data : new Blob([data], {type:type});
+  const url = URL.createObjectURL(blob);
+
+  // Automatic download (works in most browsers).
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.textContent = "⬇️ Download " + filename;
+  a.style.display = "inline-block";
+  a.style.marginTop = "10px";
+  a.style.padding = "10px 14px";
+  a.style.background = "#2563eb";
+  a.style.color = "white";
+  a.style.borderRadius = "8px";
+  a.style.textDecoration = "none";
+  a.style.fontWeight = "bold";
+
+  const status = document.getElementById("pdfStatus");
+  if (status) {
+    status.innerHTML = "✅ File ready.<br>";
+    status.appendChild(a);
+  }
+
+  // Trigger download immediately; the visible link remains for mobile browsers
+  // that block programmatic downloads.
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+
+</script>
+
+
+    
+
+
+<script>
+let photoData="";
+const esc=s=>String(s||"").replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const val=id=>{const e=document.getElementById(id);return e?e.value.trim():''};
+function addEducation(){document.getElementById('education').insertAdjacentHTML('beforeend',`<div class="item edu"><div class="row"><input class="degree" placeholder="Qualification"><input class="institution" placeholder="Institution / College"></div><div class="row"><input class="board" placeholder="Board / University"><input class="year" placeholder="Year"></div><input class="marks" placeholder="Marks / Percentage / CGPA"><button type="button" class="danger" onclick="this.parentElement.remove()">Remove</button></div>`)}
+function addQualification(){document.getElementById('qualifications').insertAdjacentHTML('beforeend',`<div class="item qual"><div class="row"><input class="qtitle" placeholder="Course / Qualification"><input class="qinst" placeholder="Institution"></div><div class="row"><input class="qyear" placeholder="Passing Year"><select class="qduration"><option value="">Course Duration</option><option>3 Months</option><option>6 Months</option><option>1 Year</option><option>2 Years</option><option>3 Years</option><option>4 Years</option><option>5 Years</option><option>6 Years</option><option>7 Years</option><option>8 Years</option><option>9 Years</option><option>10 Years</option></select></div><button type="button" class="danger" onclick="this.parentElement.remove()">Remove</button></div>`)}
+function addExperience(){document.getElementById('experience').insertAdjacentHTML('beforeend',`<div class="item exp"><div class="row"><input class="job" placeholder="Job Title"><input class="company" placeholder="Company"></div><input class="period" placeholder="Period"><textarea class="desc" placeholder="Responsibilities / achievements"></textarea><button type="button" class="danger" onclick="this.parentElement.remove()">Remove</button></div>`)}
+function addProject(){document.getElementById('projects').insertAdjacentHTML('beforeend',`<div class="item proj"><input class="ptitle" placeholder="Project title"><input class="plink" placeholder="Link (optional)"><textarea class="pdesc" placeholder="What you did / result"></textarea><button type="button" class="danger" onclick="this.parentElement.remove()">Remove</button></div>`)}
+function section(title,body){if(!body)return'';const u=val('underline');return `<section class="section"><div class="section-title ${u==='none'?'none':u}">${esc(title)}</div>${body}</section>`}
+function lines(text){return text.split(/[\n,]+/).map(x=>x.trim()).filter(Boolean).map(x=>`<li>${esc(x)}</li>`).join('')}
+function updatePreview(){
+ const accent=val('accent')||'#2563eb', text=val('text')||'#172033', paper=val('paper')||'#fff', sectionBg=val('sectionBg')||'#eef4ff';
+ const fs=val('fontSize')||'12'; const template=val('template')||'clean'; const paperStyle=val('paperStyle')||'plain';
+ let contact=[val('phone'),val('email'),val('address')].filter(Boolean).map(esc).join(' • '), personal=[];
+ const mode=val('ageMode'); if(mode==='dob'&&val('ageValue'))personal.push('Date of Birth: '+esc(val('ageValue'))); if(mode==='age'&&val('ageValue'))personal.push('Age: '+esc(val('ageValue')));
+ [['Gender',val('gender')],['Nationality',val('nationality')],['Blood Group',val('blood')]].forEach(([k,v])=>{if(v)personal.push(k+': '+esc(v))}); if(val('personal'))personal.push(esc(val('personal')));
+ const education=[...document.querySelectorAll('.edu')].map(e=>{let a=[e.querySelector('.degree').value,e.querySelector('.institution').value].filter(Boolean).map(esc).join(' • '),b=[e.querySelector('.board').value,e.querySelector('.year').value,e.querySelector('.marks').value].filter(Boolean).map(esc).join(' • ');return a||b?`<div class="entry"><div class="entry-title">${a}</div><div class="entry-meta">${b}</div></div>`:''}).join('');
+ const quals=[...document.querySelectorAll('.qual')].map(e=>{let a=[e.querySelector('.qtitle').value,e.querySelector('.qinst').value].filter(Boolean).map(esc).join(' • '),b=[e.querySelector('.qyear').value,e.querySelector('.qduration').value].filter(Boolean).map(esc).join(' • ');return a||b?`<div class="entry"><div class="entry-title">${a}</div><div class="entry-meta">${b}</div></div>`:''}).join('');
+ const exps=[...document.querySelectorAll('.exp')].map(e=>{let a=[e.querySelector('.job').value,e.querySelector('.company').value].filter(Boolean).map(esc).join(' — '),b=esc(e.querySelector('.period').value),d=esc(e.querySelector('.desc').value).replace(/\n/g,'<br>');return a||b||d?`<div class="entry"><div class="entry-head"><div class="entry-title">${a}</div><div class="entry-meta">${b}</div></div><div class="entry-desc">${d}</div></div>`:''}).join('');
+ const projs=[...document.querySelectorAll('.proj')].map(e=>{let t=esc(e.querySelector('.ptitle').value),l=esc(e.querySelector('.plink').value),d=esc(e.querySelector('.pdesc').value).replace(/\n/g,'<br>');return t||l||d?`<div class="entry"><div class="entry-title">${t}</div><div class="entry-meta">${l}</div><div class="entry-desc">${d}</div></div>`:''}).join('');
+ const photo=photoData?`<img class="photo show" src="${photoData}">`:''; const links=[val('linkedin'),val('portfolio')].filter(Boolean).map(esc).join(' • ');
+ const resume=document.getElementById('resume'); resume.style.setProperty('--accent',accent);resume.style.setProperty('--section-bg',sectionBg);resume.style.color=text;resume.style.background=paper;resume.style.fontSize=fs+'px';resume.className='resume template-'+template+(paperStyle==='soft'?' paper-soft':'');
+ resume.innerHTML=`<div class="rhead">${photo}<div><div class="name">${esc(val('name')||'Your Name')}</div><div class="contact">${contact}</div>${personal.length?`<div class="contact">${personal.join(' • ')}</div>`:''}</div></div>
+ ${section('Professional Summary / Career Objective',val('summary')?`<div class="summary">${esc(val('summary')).replace(/\n/g,'<br>')}</div>`:'')}
+ ${section('Education',education)}${section('Other Qualifications / Certifications',quals)}${section('Work Experience',exps)}${section('Skills',val('skills')?`<ul class="bullets">${lines(val('skills'))}</ul>`:'')}${section('Languages',val('languages')?`<ul class="bullets">${lines(val('languages'))}</ul>`:'')}${section('Projects',projs)}${section('Achievements',val('achievements')?`<div class="summary">${esc(val('achievements')).replace(/\n/g,'<br>')}</div>`:'')}${section('Hobbies & Interests',val('hobbies')?`<ul class="bullets">${lines(val('hobbies'))}</ul>`:'')}${section('Extra-Curricular Activities',val('extra')?`<div class="summary">${esc(val('extra')).replace(/\n/g,'<br>')}</div>`:'')}${section('Online Profiles',links?`<div class="summary">${links}</div>`:'')}${section('References',val('references')?`<div class="summary">${esc(val('references')).replace(/\n/g,'<br>')}</div>`:'')}`;
+}
+function printResume(){
+  updatePreview();
+  document.body.classList.add('print-resume');
+  setTimeout(()=>window.print(),80);
+}
+window.addEventListener('afterprint',()=>document.body.classList.remove('print-resume'));
+
+function downloadPDF(){
+  updatePreview();
+  // Mobile browsers handle the native print dialog more reliably than opening a popup.
+  // The user can choose “Save as PDF” from the print/share dialog.
+  document.body.classList.add('print-resume');
+  setTimeout(()=>window.print(),120);
+}
+
+
+const resumeInputs=['name','phone','email','address','ageValue','gender','nationality','blood','personal','summary','skills','languages','achievements','hobbies','extra','linkedin','portfolio','references','template','fontSize','paper','text','accent','underline','sectionBg','paperStyle'];
+resumeInputs.forEach(id=>{const e=document.getElementById(id);if(e){e.addEventListener('input',updatePreview);e.addEventListener('change',updatePreview)}});
+document.getElementById('ageMode').addEventListener('change',e=>{const l=document.getElementById('ageLabel'),v=document.getElementById('ageValue');if(e.target.value==='dob'){l.textContent='Date of Birth';v.type='date'}else if(e.target.value==='age'){l.textContent='Age';v.type='number'}else{l.textContent='Value';v.type='text';v.value=''}updatePreview()});
+document.getElementById('photo').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{photoData=r.result;updatePreview()};r.readAsDataURL(f)});
+addEducation();addQualification();updatePreview();
+</script>
+</body>
+</html>
