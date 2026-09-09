@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nathbidya56-svg.github.io/nath-study-tools/sitemap.xml
